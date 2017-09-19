@@ -8,16 +8,16 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.niit.collaborate.dao.BlogDAO;
 import com.niit.collaborate.model.Blog;
 
-
-public class BlogDAOTestCase 
+public class BlogDAOTestCase
 {
-
-static BlogDAO blogDAO;
+	@Autowired
+	static BlogDAO blogDAO;
 	
 	@BeforeClass
 	public static void initialize()
@@ -29,7 +29,7 @@ static BlogDAO blogDAO;
 		blogDAO = (BlogDAO)annotationConfigAppContext.getBean("blogDAO");
 	}
 	
-	@Ignore
+	
 	@Test
 	public void createBlogTest()
 	{
@@ -43,12 +43,12 @@ static BlogDAO blogDAO;
 		blog.setStatus("NA");
 		blog.setLikes(0);
 		
-		assertTrue("Problem in Blog creation",blogDAO.createBlog(blog));
+		assertTrue("Problem in Blog creation", blogDAO.createBlog(blog));
 		
 		
 	}
 
-	@Ignore
+
 	@Test
 	public void approveBlogTest() {
 		
@@ -62,10 +62,10 @@ static BlogDAO blogDAO;
 		blog.setStatus("NA");
 		blog.setLikes(0);
 		
-		assertTrue("Problem in Blog creation",blogDAO.approveBlog(blog));
+		assertTrue("Problem in Blog creation", blogDAO.approveBlog(blog));
 		
 	}
-	
+	@Ignore
 	@Test
 	public void getAllApprovedBlogTest() 
 	{
@@ -73,6 +73,14 @@ static BlogDAO blogDAO;
 		List<Blog> listBlog=blogDAO.getBlogs();
 		assertTrue("No Approved Blogs", listBlog.size()>0);
 	}
+	
+
+	@Test
+	public void deleteBlogTest()
+	{
+		assertTrue("problem in deleting", blogDAO.deleteBlog(1001));
+	}
+	
 	
 
 }
